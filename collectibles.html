@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collectibles - The Glass Menagerie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            font-size: 36px;
+        }
+        .items-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding: 20px;
+        }
+        .item-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+        }
+        .item-card img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .item-card h3 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .item-card p {
+            color: #777;
+        }
+        .item-card .price {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+        .add-to-cart-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Collectibles Collection</h1>
+</header>
+
+<div class="items-container">
+    <!-- Item 1 -->
+    <div class="item-card">
+        <img src="collectible-figurine.jpg" alt="Collectible Figurine">
+        <h3>Collectible Figurine</h3>
+        <p>Handcrafted collectible figurine of a vintage car.</p>
+        <p class="price">$35.00</p>
+        <button class="add-to-cart-btn" onclick="addToCart({ id: 1, name: 'Collectible Figurine', price: 35.00 })">Add to Cart</button>
+    </div>
+    
+    <!-- Item 2 -->
+    <div class="item-card">
+        <img src="collectible-coin.jpg" alt="Collectible Coin">
+        <h3>Collectible Coin</h3>
+        <p>Limited edition coin from the 1800s.</p>
+        <p class="price">$75.00</p>
+        <button class="add-to-cart-btn" onclick="addToCart({ id: 2, name: 'Collectible Coin', price: 75.00 })">Add to Cart</button>
+    </div>
+    
+    <!-- Item 3 -->
+    <div class="item-card">
+        <img src="vintage-book.jpg" alt="Vintage Book">
+        <h3>Vintage Book</h3>
+        <p>Rare first edition vintage book.</p>
+        <p class="price">$50.00</p>
+        <button class="add-to-cart-btn" onclick="addToCart({ id: 3, name: 'Vintage Book', price: 50.00 })">Add to Cart</button>
+    </div>
+
+    <!-- Add more items as needed -->
+</div>
+
+<script>
+    // Function to add item to the cart in localStorage
+    function addToCart(item) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+        // Check if item already exists in cart, if so, increase the quantity
+        let itemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+        if (itemIndex > -1) {
+            cart[itemIndex].quantity += 1; // Increase quantity
+        } else {
+            item.quantity = 1; // New item, set quantity to 1
+            cart.push(item);
+        }
+
+        // Save the updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+        
+        // Optional: Show confirmation to the user
+        alert(`${item.name} added to cart!`);
+    }
+</script>
+
+</body>
+</html>

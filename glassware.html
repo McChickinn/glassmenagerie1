@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassware - The Glass Menagerie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            font-size: 36px;
+        }
+        .items-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding: 20px;
+        }
+        .item-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+        }
+        .item-card img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .item-card h3 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .item-card p {
+            color: #777;
+        }
+        .item-card .price {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+        .add-to-cart-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Glassware Collection</h1>
+</header>
+
+<div class="items-container">
+    <!-- Item 1 -->
+    <div class="item-card">
+        <img src="glass-vase.jpg" alt="Glass Vase">
+        <h3>Glass Vase</h3>
+        <p>Elegant glass vase, perfect for home decor.</p>
+        <p class="price">$25.00</p>
+        <button class="add-to-cart-btn" onclick="addToCart({ id: 4, name: 'Glass Vase', price: 25.00 })">Add to Cart</button>
+    </div>
+    
+    <!-- Item 2 -->
+    <div class="item-card">
+        <img src="glass-bowl.jpg" alt="Glass Bowl">
+        <h3>Glass Bowl</h3>
+        <p>Handcrafted glass bowl, an elegant centerpiece.</p>
+        <p class="price">$40.00</p>
+        <button class="add-to-cart-btn" onclick="addToCart({ id: 5, name: 'Glass Bowl', price: 40.00 })">Add to Cart</button>
+    </div>
+    
+    <!-- Item 3 -->
+    <div class="item-card">
+        <img src="glass-cup.jpg" alt="Glass Cup">
+        <h3>Glass Cup</h3>
+        <p>Exquisite glass cup for any special occasion.</p>
+        <p class="price">$15.00</p>
+        <button class="add-to-cart-btn" onclick="addToCart({ id: 6, name: 'Glass Cup', price: 15.00 })">Add to Cart</button>
+    </div>
+
+    <!-- Add more items as needed -->
+</div>
+
+<script>
+    // Function to add item to the cart in localStorage
+    function addToCart(item) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+        // Check if item already exists in cart, if so, increase the quantity
+        let itemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+        if (itemIndex > -1) {
+            cart[itemIndex].quantity += 1; // Increase quantity
+        } else {
+            item.quantity = 1; // New item, set quantity to 1
+            cart.push(item);
+        }
+
+        // Save the updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+        
+        // Optional: Show confirmation to the user
+        alert(`${item.name} added to cart!`);
+    }
+</script>
+
+</body>
+</html>
